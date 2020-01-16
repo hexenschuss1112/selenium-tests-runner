@@ -15,3 +15,19 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file java/selenium.tests.runner/pom.xml
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: my-artifact
+        # Directory containing files to upload
+        path: artifact
+
+    - name: GitHub Action for Slack
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: ThisIsMyUsername # Optional.
+        SLACK_CHANNEL: general # Optional.
+        SLACK_OVERRIDE_MESSAGE: 'Custom message' # Optional.
+      uses: Ilshidur/action-slack@1.6.2
